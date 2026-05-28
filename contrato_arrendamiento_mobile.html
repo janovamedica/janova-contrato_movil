@@ -216,73 +216,116 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
   .f .hint{font-size:.69rem}
   .ib{font-size:.79rem;padding:10px 13px;margin-bottom:14px}
 
-  /* ── INPUT FECHA (evita desbordamiento en iOS) ── */
+  /* ── INPUT FECHA ── */
   .f input[type=date]{
     width:100%;min-width:0;
     appearance:none;-webkit-appearance:none;
-    font-size:15px;padding:10px;
+    font-size:16px;
+    padding:12px 14px;
+    height:auto;
+    line-height:1.4;
+    border-radius:8px;
+    box-sizing:border-box;
   }
 
-  /* ── TABLA EQUIPO → cards verticales ── */
+  /* ── TABLA EQUIPO → cards completamente reescritas ── */
   .twrap{margin:0;overflow-x:visible}
-  table.eq{width:100%;min-width:0;border-collapse:collapse}
+  table.eq{display:block;width:100%}
   table.eq thead{display:none}
   table.eq tbody{display:flex;flex-direction:column;gap:10px}
+
+  /* Cada fila = card */
   table.eq tbody tr{
-    display:flex;flex-direction:column;gap:8px;
-    background:#fff;border:1.5px solid var(--border);
-    border-radius:10px;padding:12px;
-    position:relative;
+    display:flex;flex-direction:column;gap:0;
+    background:#fff;
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
   }
   table.eq tbody tr:nth-child(even){background:#fff}
+
+  /* Todas las celdas como bloque normal */
   table.eq td{
-    display:block;padding:0;border:none;
+    display:block;
+    padding:0;border:none;
     background:transparent!important;
-    width:100%;
+    width:100%;box-sizing:border-box;
   }
-  /* Fila 1: Cant. (ancho fijo) + Descripción */
+
+  /* FILA SUPERIOR: Cant. + Descripción en flex horizontal */
+  table.eq td:nth-child(1),
+  table.eq td:nth-child(2){
+    display:inline-flex;
+    flex-direction:column;
+    vertical-align:top;
+    padding:10px 10px 6px;
+    box-sizing:border-box;
+  }
   table.eq td:nth-child(1){
-    position:absolute;top:12px;left:12px;
-    width:52px;
+    width:72px;
+    border-right:1px solid var(--cream2);
+    align-items:center;justify-content:center;
+    padding-top:12px;
   }
   table.eq td:nth-child(2){
-    padding-left:64px; /* deja espacio para Cant. */
+    width:calc(100% - 72px);
   }
   table.eq td:nth-child(2)::before{
-    content:'Descripción';display:block;
-    font-size:.64rem;font-weight:700;color:var(--blue-deep);
-    text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;
+    content:'DESCRIPCIÓN';
+    font-size:.62rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:4px;
   }
-  /* Fila 2: Precio y Importe lado a lado */
+
+  /* SEPARADOR entre filas */
+  table.eq td:nth-child(3){
+    border-top:1px solid var(--cream2);
+  }
+
+  /* FILA INFERIOR: Precio e Importe en flex horizontal */
   table.eq td:nth-child(3),
   table.eq td:nth-child(4){
-    width:calc(50% - 4px);display:inline-block;vertical-align:top;
+    display:inline-flex;
+    flex-direction:column;
+    vertical-align:top;
+    width:calc(50% - 1px);
+    padding:6px 10px 10px;
+    box-sizing:border-box;
   }
-  table.eq td:nth-child(3){margin-right:8px}
+  table.eq td:nth-child(3){border-right:1px solid var(--cream2)}
   table.eq td:nth-child(3)::before{
-    content:'Precio/mes';display:block;
-    font-size:.64rem;font-weight:700;color:var(--blue-deep);
-    text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;
+    content:'PRECIO/MES';
+    font-size:.62rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:4px;
   }
   table.eq td:nth-child(4)::before{
-    content:'Importe mes';display:block;
-    font-size:.64rem;font-weight:700;color:var(--blue-deep);
-    text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;
+    content:'IMPORTE MES';
+    font-size:.62rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:4px;
   }
-  /* Botón eliminar — esquina superior derecha */
+
+  /* Botón eliminar — fila propia al fondo */
   table.eq td:nth-child(5){
-    position:absolute;top:10px;right:10px;
-    width:auto;
+    display:flex;justify-content:flex-end;
+    padding:0 8px 6px;
+    border-top:none;
   }
-  /* Empuja desc/precio hacia abajo para no chocar con Cant. */
-  table.eq td:nth-child(2),
-  table.eq td:nth-child(3){margin-top:4px}
 
-  table.eq td input{font-size:15px;padding:8px;border-radius:7px;width:100%}
-  table.eq td input.qty{font-size:1rem;text-align:center}
+  /* Inputs dentro de celdas */
+  table.eq td input{
+    font-size:15px;padding:7px 9px;
+    border-radius:7px;width:100%;
+    box-sizing:border-box;
+  }
+  table.eq td input.qty{
+    font-size:1.1rem;font-weight:700;
+    text-align:center;padding:7px 4px;
+  }
 
-  .addbtn{font-size:.82rem;padding:11px 14px;width:100%;
-    justify-content:center;display:flex;margin-top:4px;border-radius:9px}
+  .addbtn{
+    font-size:.82rem;padding:11px 14px;width:100%;
+    justify-content:center;display:flex;
+    margin-top:4px;border-radius:9px;
+  }
 
   /* ── TOTALES ── */
   .tots{padding:11px 14px;gap:4px}
