@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>JÁNOVA MÉDICA</title>
+<meta http-equiv="refresh" content="0; url=contrato_arrendamiento_mobile.html">
+<title>JÁNOVA MÉDICA – Contrato de Arrendamiento</title>
+
+<!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1570a6">
 <meta name="mobile-web-app-capable" content="yes">
@@ -12,16 +15,20 @@
 <meta name="apple-mobile-web-app-title" content="Jánova Médica">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+  body{margin:0;min-height:100dvh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(145deg,#0d4d7a,#1570a6);font-family:sans-serif}
+  p{color:rgba(255,255,255,.7);font-size:.9rem}
+  a{color:#F5A623}
+</style>
 <script>
-  if ('serviceWorker' in navigator) {
+  if('serviceWorker' in navigator){
     navigator.serviceWorker.register('./sw.js');
   }
-  window.location.replace('./contrato_arrendamiento_mobile.html');
 </script>
 </head>
 <body>
-  <p style="font-family:sans-serif;text-align:center;margin-top:40px;">
-    Cargando... <a href="./contrato_arrendamiento_mobile.html">Click aquí si no redirige</a>
-  </p>
+<p>Redirigiendo… <a href="contrato_arrendamiento_mobile.html">Click aquí si no carga</a></p>
 </body>
 </html>
