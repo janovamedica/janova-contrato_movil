@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Contrato de Arrendamiento – JÁNOVA MÉDICA</title>
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1570a6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Jánova Médica">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/x-icon" href="JM.ico">
+<link rel="icon" type="image/png" href="favicon.png">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}</script>
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -206,77 +218,68 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
 
   /* ── INPUT FECHA (evita desbordamiento en iOS) ── */
   .f input[type=date]{
-    width:100%;
-    min-width:0;
-    appearance:none;
-    -webkit-appearance:none;
-    font-size:15px;
-    padding:10px 10px;
+    width:100%;min-width:0;
+    appearance:none;-webkit-appearance:none;
+    font-size:15px;padding:10px;
   }
 
-  /* ── TABLA EQUIPO: layout vertical por fila ── */
+  /* ── TABLA EQUIPO → cards verticales ── */
   .twrap{margin:0;overflow-x:visible}
-
-  /* Ocultar tabla original y reemplazar con cards por fila */
-  table.eq thead{display:none}           /* oculta cabecera */
-  table.eq{width:100%;min-width:0;border-collapse:collapse;font-size:.85rem}
+  table.eq{width:100%;min-width:0;border-collapse:collapse}
+  table.eq thead{display:none}
+  table.eq tbody{display:flex;flex-direction:column;gap:10px}
   table.eq tbody tr{
-    display:grid;
-    grid-template-columns:56px 1fr 1fr;  /* cant | desc | precio */
-    grid-template-rows:auto auto;
-    gap:5px 8px;
-    background:#fff;
-    border:1.5px solid var(--border);
-    border-radius:9px;
-    padding:10px;
-    margin-bottom:8px;
+    display:flex;flex-direction:column;gap:8px;
+    background:#fff;border:1.5px solid var(--border);
+    border-radius:10px;padding:12px;
+    position:relative;
   }
   table.eq tbody tr:nth-child(even){background:#fff}
   table.eq td{
-    display:block;
-    padding:0;
-    border:none;
+    display:block;padding:0;border:none;
     background:transparent!important;
+    width:100%;
   }
-  /* Cant. — columna izquierda, ocupa 2 filas */
+  /* Fila 1: Cant. (ancho fijo) + Descripción */
   table.eq td:nth-child(1){
-    grid-column:1;grid-row:1/3;
-    display:flex;align-items:center;justify-content:center;
+    position:absolute;top:12px;left:12px;
+    width:52px;
   }
-  table.eq td:nth-child(1)::before{
-    content:'Cant.';display:block;
-    font-size:.65rem;font-weight:600;color:var(--muted);
-    text-transform:uppercase;margin-bottom:3px;
-    display:none; /* solo ícono numérico */
+  table.eq td:nth-child(2){
+    padding-left:64px; /* deja espacio para Cant. */
   }
-  /* Descripción */
-  table.eq td:nth-child(2){grid-column:2;grid-row:1}
   table.eq td:nth-child(2)::before{
     content:'Descripción';display:block;
     font-size:.64rem;font-weight:700;color:var(--blue-deep);
     text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;
   }
-  /* Precio */
-  table.eq td:nth-child(3){grid-column:3;grid-row:1}
+  /* Fila 2: Precio y Importe lado a lado */
+  table.eq td:nth-child(3),
+  table.eq td:nth-child(4){
+    width:calc(50% - 4px);display:inline-block;vertical-align:top;
+  }
+  table.eq td:nth-child(3){margin-right:8px}
   table.eq td:nth-child(3)::before{
     content:'Precio/mes';display:block;
     font-size:.64rem;font-weight:700;color:var(--blue-deep);
     text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;
   }
-  /* Importe mensual */
-  table.eq td:nth-child(4){grid-column:2;grid-row:2}
   table.eq td:nth-child(4)::before{
     content:'Importe mes';display:block;
     font-size:.64rem;font-weight:700;color:var(--blue-deep);
     text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;
   }
-  /* Botón eliminar */
+  /* Botón eliminar — esquina superior derecha */
   table.eq td:nth-child(5){
-    grid-column:3;grid-row:2;
-    display:flex;align-items:flex-end;justify-content:flex-end;
+    position:absolute;top:10px;right:10px;
+    width:auto;
   }
-  table.eq td input{font-size:15px;padding:7px 8px;border-radius:7px}
-  table.eq td input.qty{font-size:1rem;text-align:center;padding:7px 4px}
+  /* Empuja desc/precio hacia abajo para no chocar con Cant. */
+  table.eq td:nth-child(2),
+  table.eq td:nth-child(3){margin-top:4px}
+
+  table.eq td input{font-size:15px;padding:8px;border-radius:7px;width:100%}
+  table.eq td input.qty{font-size:1rem;text-align:center}
 
   .addbtn{font-size:.82rem;padding:11px 14px;width:100%;
     justify-content:center;display:flex;margin-top:4px;border-radius:9px}
