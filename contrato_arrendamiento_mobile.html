@@ -252,10 +252,14 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
     width:100%;box-sizing:border-box;
   }
 
-  /* ── Card por equipo ── */
+  /* ── Card por equipo
+       Fila 1: [CANT 72px] [DESCRIPCIÓN resto]
+       Fila 2: [PRECIO 90px] [IMPORTE resto]
+       Fila 3: [botón ×]
+  ── */
   table.eq tbody tr{
     display:grid;
-    grid-template-columns:60px 1fr;
+    grid-template-columns:72px 1fr;
     grid-template-rows:auto auto auto;
     background:#fff;border:1.5px solid var(--border);
     border-radius:10px;overflow:hidden;gap:0;
@@ -268,76 +272,77 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
     box-sizing:border-box;
   }
 
-  /* Fila 1 col izq: CANT. */
+  /* ── Fila 1 izq: CANT. ── */
   table.eq td:nth-child(1){
     grid-column:1;grid-row:1;
-    padding:10px 8px 8px;
+    padding:8px 6px 6px;
     border-right:1px solid var(--cream2);
     border-bottom:1px solid var(--cream2);
     align-items:center;justify-content:center;
   }
   table.eq td:nth-child(1)::before{
     content:'CANT.';
-    font-size:.58rem;font-weight:700;color:var(--blue-deep);
-    letter-spacing:.04em;margin-bottom:4px;
+    font-size:.57rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:3px;
   }
   table.eq td:nth-child(1) input.qty{
-    font-size:.95rem;font-weight:700;
-    text-align:center;padding:5px 2px;
-    width:100%;box-sizing:border-box;
+    font-size:1rem;font-weight:700;text-align:center;
+    padding:5px 4px;width:100%;box-sizing:border-box;
   }
 
-  /* Fila 1 col der: DESCRIPCIÓN */
+  /* ── Fila 1 der: DESCRIPCIÓN ── */
   table.eq td:nth-child(2){
     grid-column:2;grid-row:1;
-    padding:10px 10px 8px;
+    padding:8px 8px 6px;
     border-bottom:1px solid var(--cream2);
   }
   table.eq td:nth-child(2)::before{
     content:'DESCRIPCIÓN';
-    font-size:.58rem;font-weight:700;color:var(--blue-deep);
-    letter-spacing:.04em;margin-bottom:4px;
+    font-size:.57rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:3px;
   }
   table.eq td:nth-child(2) input{
-    font-size:14px;padding:6px 8px;
-    border-radius:7px;width:100%;box-sizing:border-box;
+    font-size:13px;padding:5px 7px;
+    border-radius:6px;width:100%;box-sizing:border-box;
   }
 
-  /* Fila 2: PRECIO e IMPORTE ocupan las 2 columnas juntas en flex */
+  /* ── Fila 2: re-grid a 90px / resto ── */
   table.eq td:nth-child(3){
     grid-column:1;grid-row:2;
-    padding:8px 8px 10px;
+    padding:6px 6px 8px;
     border-right:1px solid var(--cream2);
+    /* sobreescribir ancho heredado */
+    min-width:0;
   }
   table.eq td:nth-child(3)::before{
     content:'PRECIO/MES';
-    font-size:.58rem;font-weight:700;color:var(--blue-deep);
-    letter-spacing:.04em;margin-bottom:4px;
+    font-size:.57rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:3px;white-space:nowrap;
   }
   table.eq td:nth-child(3) input{
-    font-size:13px;padding:6px 6px;
-    border-radius:7px;width:100%;box-sizing:border-box;
+    font-size:13px;padding:5px 4px;
+    border-radius:6px;width:100%;box-sizing:border-box;
   }
 
   table.eq td:nth-child(4){
     grid-column:2;grid-row:2;
-    padding:8px 10px 10px;
+    padding:6px 8px 8px;
   }
   table.eq td:nth-child(4)::before{
     content:'IMPORTE MES';
-    font-size:.58rem;font-weight:700;color:var(--blue-deep);
-    letter-spacing:.04em;margin-bottom:4px;
+    font-size:.57rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:3px;white-space:nowrap;
   }
   table.eq td:nth-child(4) input{
-    font-size:13px;padding:6px 6px;
-    border-radius:7px;width:100%;box-sizing:border-box;
+    font-size:13px;padding:5px 7px;
+    border-radius:6px;width:100%;box-sizing:border-box;
   }
 
-  /* Fila 3: botón eliminar */
+  /* ── Fila 3: botón × ── */
   table.eq td:nth-child(5){
     grid-column:1/3;grid-row:3;
     display:flex;justify-content:flex-end;
-    padding:2px 8px 5px;
+    padding:2px 8px 4px;
     border-top:1px solid var(--cream2);
   }
 
