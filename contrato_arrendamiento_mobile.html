@@ -252,26 +252,34 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
     width:100%;box-sizing:border-box;
   }
 
-  /* ── Fila superior: [Cant.] [Descripción] en flex ── */
+  /* ── Card por equipo ── */
   table.eq tbody tr{
-    display:flex;flex-direction:column;gap:0;
+    display:grid;
+    grid-template-columns:60px 1fr;
+    grid-template-rows:auto auto auto;
     background:#fff;border:1.5px solid var(--border);
-    border-radius:10px;overflow:hidden;
+    border-radius:10px;overflow:hidden;gap:0;
   }
 
-  /* Wrapper virtual para cant+desc: los ponemos en una fila flex */
-  table.eq td:nth-child(1),
-  table.eq td:nth-child(2){
-    display:inline-flex;flex-direction:column;
-    vertical-align:top;box-sizing:border-box;
+  table.eq td{
+    display:flex;flex-direction:column;
+    padding:0;border:none;
+    background:transparent!important;
+    box-sizing:border-box;
   }
 
-  /* Cant. — pequeño, a la izquierda */
+  /* Fila 1 col izq: CANT. */
   table.eq td:nth-child(1){
-    width:58px;min-width:58px;
+    grid-column:1;grid-row:1;
     padding:10px 8px 8px;
     border-right:1px solid var(--cream2);
+    border-bottom:1px solid var(--cream2);
     align-items:center;justify-content:center;
+  }
+  table.eq td:nth-child(1)::before{
+    content:'CANT.';
+    font-size:.58rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:4px;
   }
   table.eq td:nth-child(1) input.qty{
     font-size:.95rem;font-weight:700;
@@ -279,52 +287,58 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
     width:100%;box-sizing:border-box;
   }
 
-  /* Descripción — ocupa el resto */
+  /* Fila 1 col der: DESCRIPCIÓN */
   table.eq td:nth-child(2){
-    width:calc(100% - 58px);
-    padding:8px 10px 8px;
+    grid-column:2;grid-row:1;
+    padding:10px 10px 8px;
+    border-bottom:1px solid var(--cream2);
   }
   table.eq td:nth-child(2)::before{
     content:'DESCRIPCIÓN';
-    font-size:.6rem;font-weight:700;color:var(--blue-deep);
-    letter-spacing:.04em;margin-bottom:4px;display:block;
+    font-size:.58rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:4px;
   }
   table.eq td:nth-child(2) input{
-    font-size:15px;padding:7px 9px;
+    font-size:14px;padding:6px 8px;
     border-radius:7px;width:100%;box-sizing:border-box;
   }
 
-  /* ── Fila inferior: [Precio/mes] [Importe mes] ── */
-  table.eq td:nth-child(3),
-  table.eq td:nth-child(4){
-    display:inline-flex;flex-direction:column;
-    vertical-align:top;
-    width:50%;box-sizing:border-box;
-    padding:6px 10px 10px;
-    border-top:1px solid var(--cream2);
+  /* Fila 2: PRECIO e IMPORTE ocupan las 2 columnas juntas en flex */
+  table.eq td:nth-child(3){
+    grid-column:1;grid-row:2;
+    padding:8px 8px 10px;
+    border-right:1px solid var(--cream2);
   }
-  table.eq td:nth-child(3){border-right:1px solid var(--cream2)}
   table.eq td:nth-child(3)::before{
     content:'PRECIO/MES';
-    font-size:.6rem;font-weight:700;color:var(--blue-deep);
-    letter-spacing:.04em;margin-bottom:4px;display:block;
+    font-size:.58rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:4px;
+  }
+  table.eq td:nth-child(3) input{
+    font-size:13px;padding:6px 6px;
+    border-radius:7px;width:100%;box-sizing:border-box;
+  }
+
+  table.eq td:nth-child(4){
+    grid-column:2;grid-row:2;
+    padding:8px 10px 10px;
   }
   table.eq td:nth-child(4)::before{
     content:'IMPORTE MES';
-    font-size:.6rem;font-weight:700;color:var(--blue-deep);
-    letter-spacing:.04em;margin-bottom:4px;display:block;
+    font-size:.58rem;font-weight:700;color:var(--blue-deep);
+    letter-spacing:.04em;margin-bottom:4px;
   }
-  table.eq td:nth-child(3) input,
   table.eq td:nth-child(4) input{
-    font-size:15px;padding:7px 9px;
+    font-size:13px;padding:6px 6px;
     border-radius:7px;width:100%;box-sizing:border-box;
   }
 
-  /* Botón eliminar — esquina inferior derecha */
+  /* Fila 3: botón eliminar */
   table.eq td:nth-child(5){
+    grid-column:1/3;grid-row:3;
     display:flex;justify-content:flex-end;
-    padding:2px 8px 6px;width:100%;
-    box-sizing:border-box;
+    padding:2px 8px 5px;
+    border-top:1px solid var(--cream2);
   }
 
   .addbtn{
