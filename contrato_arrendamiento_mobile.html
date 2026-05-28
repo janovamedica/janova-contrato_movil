@@ -311,7 +311,7 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
     grid-column:1;grid-row:2;
     padding:6px 6px 8px;
     border-right:1px solid var(--cream2);
-    /* sobreescribir ancho heredado */
+    align-items:center;justify-content:center;
     min-width:0;
   }
   table.eq td:nth-child(3)::before{
@@ -320,7 +320,8 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
     letter-spacing:.04em;margin-bottom:3px;white-space:nowrap;
   }
   table.eq td:nth-child(3) input{
-    font-size:13px;padding:5px 4px;
+    font-size:13px;font-weight:600;text-align:center;
+    padding:5px 4px;
     border-radius:6px;width:100%;box-sizing:border-box;
   }
 
@@ -616,7 +617,7 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
 <div class="card" id="step5">
   <div class="ch"><div class="chi">✍️</div><div><h2>Firmas de Conformidad</h2></div></div>
   <div class="cb">
-    <div class="ib">Ambas partes confirman haber leído y aceptado todas las cláusulas del <strong>Contrato de Arrendamiento de Cuidamos tu recuperación en casa</strong>, incluyendo el Anexo A.</div>
+    <div class="ib">Ambas partes confirman haber leído y aceptado todas las cláusulas del <strong>Contrato de Arrendamiento de Jánova Médica</strong>, incluyendo el Anexo A.</div>
 
     <div class="grid" style="margin-bottom:20px">
       <div class="f"><label>Nombre del firmante (Arrendatario)</label>
@@ -786,7 +787,7 @@ function calcEquipo(){
     var q=parseFloat(row.querySelector('.qty')&&row.querySelector('.qty').value)||0;
     var p=parseFloat(row.querySelector('.precio')&&row.querySelector('.precio').value.replace(/,/g,''))||0;
     var imp=q*p,el=row.querySelector('.importe');
-    if(el)el.value=imp>0?'$'+imp.toFixed(2):'';
+    if(el)el.value=imp>0?'$'+imp.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0}):'';
     sub+=imp;
   });
   var iva=ivaActivo?sub*.16:0;
