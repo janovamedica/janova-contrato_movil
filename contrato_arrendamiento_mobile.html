@@ -41,7 +41,7 @@ document.head.appendChild(ml);
 :root{
   --blue:#2196D3;--blue-dark:#1570a6;--blue-deep:#0d4d7a;
   --gold:#F5A623;--gold-light:#ffc553;--gold-pale:#fff8ed;
-  --cream:#f4f9fd;--cream2:#e6f2fb;--red:#c0392b;--green:#1a7a4a;
+  --cream:#f4f9fd;--cream2:#e6f2fb;--red:#c0392b;--green:#00e676;--green-neon:#00e676;--green-lime:#76FF00;
   --text:#1a2e3d;--muted:#6b8091;--border:#c4daea;--white:#fff;
   --shadow:0 4px 20px rgba(33,150,211,.10);--r:10px;
 }
@@ -60,7 +60,11 @@ header img{height:64px;width:auto}
 .sn{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.15);
   display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
 .sp.active .sn{background:var(--gold);color:var(--blue-deep)}
-.sp.done .sn{background:var(--green);color:#fff}
+.sp.done .sn{background:var(--green-lime);color:#000;box-shadow:0 0 8px var(--green-lime),0 0 16px rgba(118,255,0,.4);font-size:.85rem;}
+.wstep-item.active .wstep-dot{background:var(--gold)!important;box-shadow:0 0 5px var(--gold);}
+.wstep-item.done .wstep-dot{background:var(--green)!important;box-shadow:0 0 6px var(--green),0 0 12px rgba(0,230,118,.5);}
+.wstep-item.done .wstep-lbl{color:var(--green);font-weight:600;}
+.wstep-line.done{background:var(--green);}
 .ssep{width:24px;height:1px;background:rgba(255,255,255,.2);margin:0 6px;flex-shrink:0}
 .wrap{max-width:820px;margin:28px auto;padding:0 16px}
 .card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);
@@ -510,15 +514,15 @@ canvas{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair}
         <span class="wsec-txt">Datos seguros y encriptados.</span>
       </div>
       <div class="wsteps-row">
-        <div class="wstep-item active"><span class="wstep-dot"></span><span class="wstep-lbl">Inicio</span></div>
+        <div class="wstep-item active"><span class="wstep-dot"></span><span class="wstep-lbl">Arrendatario</span></div>
         <div class="wstep-line"></div>
-        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Datos</span></div>
+        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Contrato</span></div>
         <div class="wstep-line"></div>
-        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Revisión</span></div>
+        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Equipos</span></div>
         <div class="wstep-line"></div>
-        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Firma</span></div>
+        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Documentos</span></div>
         <div class="wstep-line"></div>
-        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Finalizar</span></div>
+        <div class="wstep-item"><span class="wstep-dot"></span><span class="wstep-lbl">Firmas</span></div>
       </div>
     </div>
     <button class="btn-start" onclick="startApp()">
@@ -766,8 +770,13 @@ function showStep(n){
   document.getElementById('step'+n).classList.add('active');
   document.querySelectorAll('.sp').forEach(function(p){
     var s=parseInt(p.dataset.step);
+    var sn=p.querySelector('.sn');
     p.classList.remove('active','done');
-    if(s===n)p.classList.add('active');else if(s<n)p.classList.add('done');
+    if(s===n){
+      p.classList.add('active');
+    }else if(s<n){
+      p.classList.add('done');
+    }
   });
   document.getElementById('btnBack').style.display=n===1?'none':'flex';
   var nx=document.getElementById('btnNext');
@@ -1478,6 +1487,11 @@ async function doSubmit(){
     document.getElementById('navBtns').style.display='none';
     document.getElementById('success').style.display='block';
     document.getElementById('folioNum').textContent='Folio: '+folio;
+    // Marcar todos los pasos como completados (verde ✓)
+    document.querySelectorAll('.sp').forEach(function(p){
+      p.classList.remove('active');
+      p.classList.add('done');
+    });
     window.scrollTo({top:0,behavior:'smooth'});
   }catch(e){
     console.error('doSubmit error:',e);
