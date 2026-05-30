@@ -1509,7 +1509,10 @@ async function descargarPDF(){
 function startApp(){
   var ws=document.getElementById('welcomeScreen');
   ws.classList.add('fade-out');
-  setTimeout(function(){ws.style.display='none';},600);
+  setTimeout(function(){
+    ws.style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+  },600);
 }
 
 document.addEventListener('DOMContentLoaded',function(){
